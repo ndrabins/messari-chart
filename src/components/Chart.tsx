@@ -1,40 +1,55 @@
+import { useState } from "react";
 import { ResponsiveLine } from "@nivo/line";
-import { data } from "../utilities/dummyData";
+import { data } from "../utils/dummyData";
 import { Box } from "@mui/material";
 
-interface ChartProps {}
+interface ChartProps {
+  // assetName: string;
+  data: any;
+}
+
+// [
+//   { x: 1, y: 100 },
+//   { x: 150, y: 150 },
+//   { x: 200, y: 200 },
+//   { x: 300, y: 250 },
+// ];
 
 export function Chart(props: ChartProps) {
   return (
     <Box sx={{ height: 800 }}>
       <ResponsiveLine
-        data={data}
+        data={[
+          {
+            id: "sol",
+            data: data,
+          },
+        ]}
         margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        xScale={{ type: "point" }}
+        xScale={{ type: "linear" }}
         yScale={{
           type: "linear",
-          min: "auto",
-          max: "auto",
-          stacked: true,
+          // min: "auto",
+          // max: "auto",
+          min: 100, // TODO: replace
+          max: 300, // TODO: replace
           reverse: false,
         }}
-        yFormat=" >-.2f"
         axisTop={null}
         axisRight={null}
         axisBottom={{
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "transportation",
+          legend: "Time",
           legendOffset: 36,
           legendPosition: "middle",
         }}
         axisLeft={{
-          // orient: "left",
           tickSize: 5,
           tickPadding: 5,
           tickRotation: 0,
-          legend: "count",
+          legend: "Price",
           legendOffset: -40,
           legendPosition: "middle",
         }}
