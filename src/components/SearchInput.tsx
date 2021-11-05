@@ -1,7 +1,16 @@
-import { TextField } from "@mui/material";
+import { TextField, Card } from "@mui/material";
 
 interface SearchInputProps {}
 
 export function SearchInput(props: SearchInputProps) {
-  return <TextField id="outlined-basic" label="Outlined" variant="outlined" />;
+  return (
+    <Card sx={{ mb: 2, p: 2 }}>
+      <TextField
+        fullWidth
+        id="outlined-basic"
+        label="Search"
+        variant="outlined"
+      />
+    </Card>
+  );
 }
