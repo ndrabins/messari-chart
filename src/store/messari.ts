@@ -9,12 +9,7 @@ export interface MessariState {
 }
 
 const initialState: MessariState = {
-  timeSeriesData: [
-    { x: 1, y: 100 },
-    { x: 150, y: 150 },
-    { x: 200, y: 200 },
-    { x: 300, y: 250 },
-  ],
+  timeSeriesData: [],
   marketData: [],
   timeSeriesStatus: "idle",
 };
@@ -23,10 +18,10 @@ export const getTimeSeriesData = createAsyncThunk(
   "messari/getTimeSeriesData",
   async (assetKey: string) => {
     const data = await fetchAssetTimeSeries(assetKey);
-    console.log("date in slice", data);
     return data;
   }
 );
+
 export const messariSlice = createSlice({
   name: "counter",
   initialState,

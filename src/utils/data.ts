@@ -1,11 +1,15 @@
 // data.values from messari data.
+import dayjs from "dayjs";
+
 export const formatTimeDataForChart = (messariData: any[]) => {
   let chartData = [];
 
-  console.log("messari data", messariData);
   chartData = messariData.map((timeData) => {
-    return { x: new Date(timeData[0]), y: timeData[1] };
+    return {
+      x: dayjs(timeData[0]).format("DD-MM-YYYY"),
+      y: timeData[1],
+    };
   });
 
-  console.log("chart data", chartData);
+  return chartData;
 };
