@@ -1,5 +1,7 @@
 import axios from "axios";
-import { formatTimeDataForChart } from "./data";
+import { formatTimeDataForChart } from "../utils/data";
+
+const BASE_URL = "https://data.messari.io/api/v1/";
 
 const headers = {
   "x-messari-api-key": process.env.REACT_APP_MESSARI_API ?? "",
@@ -13,11 +15,10 @@ export const fetchAssetTimeSeries = async (assetName: string) => {
   };
 
   const response = await axios.get(
-    `https://data.messari.io/api/v1/assets/${assetName}/metrics/price/time-series`,
+    `${BASE_URL}assets/${assetName}/metrics/price/time-series`,
     { params: params, headers: headers }
   );
 
-  console.log(response.data);
   const formattedData = formatTimeDataForChart(response.data.data.values);
   return formattedData;
 };

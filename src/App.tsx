@@ -1,35 +1,30 @@
-import { useEffect, useState } from "react";
 import { Box, Container, CssBaseline, Stack } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./utils/theme";
-import { fetchAssetTimeSeries } from "./utils/api";
+import { Provider } from "react-redux";
+import { store } from "./store";
 
 import { SearchInput, Chart } from "./components";
 
 function App() {
-  const [assetData, setAssetData] = useState<any>();
-
-  useEffect(() => {
-    const data = fetchAssetTimeSeries("sol");
-    setAssetData(data);
-  }, []);
-
   return (
-    <ThemeProvider theme={theme}>
-      <Box>
-        <CssBaseline />
-        <Container>
-          <Stack
-            sx={{ height: "100vh" }}
-            alignContent="center"
-            justifyContent="center"
-          >
-            <SearchInput />
-            <Chart data={assetData} />
-          </Stack>
-        </Container>
-      </Box>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Box>
+          <CssBaseline />
+          <Container>
+            <Stack
+              sx={{ height: "100vh" }}
+              alignContent="center"
+              justifyContent="center"
+            >
+              <SearchInput />
+              <Chart />
+            </Stack>
+          </Container>
+        </Box>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

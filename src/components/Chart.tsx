@@ -1,21 +1,16 @@
 import { useState } from "react";
 import { ResponsiveLine } from "@nivo/line";
-import { data } from "../utils/dummyData";
 import { Box } from "@mui/material";
+import { useAppSelector } from "../store/hooks";
+import { RootState } from "../store";
 
-interface ChartProps {
-  // assetName: string;
-  data: any;
-}
-
-// [
-//   { x: 1, y: 100 },
-//   { x: 150, y: 150 },
-//   { x: 200, y: 200 },
-//   { x: 300, y: 250 },
-// ];
+interface ChartProps {}
 
 export function Chart(props: ChartProps) {
+  const data = useAppSelector(
+    (state: RootState) => state.messari.timeSeriesData
+  );
+
   return (
     <Box sx={{ height: 800 }}>
       <ResponsiveLine
