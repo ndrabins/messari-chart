@@ -3,9 +3,13 @@ import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
 import { Card, CircularProgress, Stack } from "@mui/material";
 
-interface ChartProps {}
+interface ChartProps {
+  assetKey: string;
+}
 
 export function Chart(props: ChartProps) {
+  const { assetKey } = props;
+
   const { timeSeriesData } = useAppSelector(
     (state: RootState) => state.messari
   );
@@ -25,7 +29,7 @@ export function Chart(props: ChartProps) {
     <ResponsiveLine
       data={[
         {
-          id: "sol",
+          id: assetKey,
           data: timeSeriesData,
         },
       ]}

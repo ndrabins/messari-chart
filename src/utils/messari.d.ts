@@ -9,3 +9,10 @@ interface MessariMetrics {
     current_marketcap_usd: number;
   };
 }
+
+interface Asset {
+  id: string;
+  name: string;
+  symbol: string;
+  metrics: MessariMetrics;
+}

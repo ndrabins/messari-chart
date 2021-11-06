@@ -12,11 +12,6 @@ export function Metrics(props: MetricsProps) {
   const { percent_change_usd_last_24_hours, price_usd } = metrics.market_data;
   const { rank, current_marketcap_usd } = metrics.marketcap;
 
-  const getColorStyles = (value: number) => {
-    return value > 0 ? "green" : "red";
-  };
-
-  console.log("id is", id);
   return (
     <Box>
       <Stack

@@ -1,14 +1,16 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchAssetMetrics, fetchAssetTimeSeries } from "./api";
+import { fetchAssetMetrics, fetchAssetTimeSeries, fetchAllAssets } from "./api";
 import { RootState, AppThunk } from "./index";
 
 export interface MessariState {
-  timeSeriesData: any;
+  timeSeriesData: any; // todo need type
   assetKey: string;
   assetName: string;
   assetMetrics: MessariMetrics;
   timeSeriesStatus: "idle" | "loading" | "failed";
   assetMetricsStatus: "idle" | "loading" | "failed";
+  assetsStatus: "idle" | "loading" | "failed";
+  assets: Array<Asset>;
 }
 
 const initialState: MessariState = {
@@ -26,7 +28,8 @@ const initialState: MessariState = {
       current_marketcap_usd: 0,
     },
   },
-
+  assets: [],
+  assetsStatus: "idle",
   timeSeriesStatus: "idle",
   assetMetricsStatus: "idle",
 };
@@ -47,10 +50,23 @@ export const getMetricsData = createAsyncThunk(
   }
 );
 
+export const getAssets = createAsyncThunk("messari/getAssets", async () => {
+  const data = await fetchAllAssets();
+  return data;
+});
+
 export const messariSlice = createSlice({
   name: "counter",
   initialState,
-  reducers: {},
+  reducers: {
+    selectAsset: (
+      state,
+      action: PayloadAction<{ assetName: string; assetKey: string }>
+    ) => {
+      state.assetKey = action.payload.assetKey;
+      state.assetName = action.payload.assetName;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getTimeSeriesData.pending, (state) => {
@@ -74,11 +90,20 @@ export const messariSlice = createSlice({
       .addCase(getMetricsData.fulfilled, (state, action: any) => {
         state.assetMetricsStatus = "idle";
         state.assetMetrics = action.payload;
+      })
+      .addCase(getAssets.pending, (state) => {
+        state.assetsStatus = "loading";
+      })
+      .addCase(getAssets.rejected, (state) => {
+        state.assetsStatus = "failed";
+      })
+      .addCase(getAssets.fulfilled, (state, action: any) => {
+        state.assetsStatus = "idle";
+        state.assets = action.payload;
       });
   },
 });
 
-// Action creators are generated for each case reducer function
-export const {} = messariSlice.actions;
+export const { selectAsset } = messariSlice.actions;
 
 export default messariSlice.reducer;

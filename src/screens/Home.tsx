@@ -1,7 +1,12 @@
 import { Box, Container, Stack, Card } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
-import { RootState, getTimeSeriesData, getMetricsData } from "../store";
+import {
+  RootState,
+  getTimeSeriesData,
+  getMetricsData,
+  getAssets,
+} from "../store";
 import { SearchInput, Chart, Metrics } from "../components";
 
 export function Home() {
@@ -13,6 +18,7 @@ export function Home() {
   useEffect(() => {
     dispatch(getTimeSeriesData(assetKey));
     dispatch(getMetricsData(assetKey));
+    dispatch(getAssets());
   }, [assetKey]);
 
   return (
@@ -35,7 +41,7 @@ export function Home() {
                 metrics={assetMetrics}
                 assetName={assetName}
               />
-              <Chart />
+              <Chart assetKey={assetKey} />
             </Card>
           </Box>
         </Stack>
