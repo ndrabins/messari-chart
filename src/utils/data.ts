@@ -6,7 +6,7 @@ export const formatTimeDataForChart = (messariData: any[]) => {
 
   chartData = messariData.map((timeData) => {
     return {
-      x: dayjs(timeData[0]).format("MM/DD/YYYY"),
+      x: dayjs(timeData[0]).format("MM/DD/YYYY HH:mm"),
       y: timeData[1],
     };
   });
