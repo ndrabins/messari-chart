@@ -24,4 +24,11 @@ export const fetchAssetTimeSeries = async (assetName: string) => {
 };
 
 // TODO: Fetch market data for asset and display above chart
-export const fetchAssetMarketData = async (assetName: string) => {};
+export const fetchAssetMetrics = async (assetName: string) => {
+  const response = await axios.get(`${BASE_URL}assets/${assetName}/metrics`, {
+    headers: headers,
+  });
+
+  const { market_data, marketcap } = response.data.data;
+  return { market_data, marketcap };
+};
