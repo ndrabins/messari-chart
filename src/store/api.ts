@@ -18,9 +18,14 @@ export const fetchAssetTimeSeries = async (assetName: string) => {
     `${BASE_URL}assets/${assetName}/metrics/price/time-series`,
     { params: params, headers: headers }
   );
+  const data = response.data.data;
 
-  const formattedData = formatTimeDataForChart(response.data.data.values);
-  return formattedData;
+  const formattedData = formatTimeDataForChart(data.values);
+  return {
+    timeSeriesData: formattedData,
+    assetName: data.name,
+    assetKey: data.symbol,
+  };
 };
 
 // TODO: Fetch market data for asset and display above chart
@@ -29,6 +34,6 @@ export const fetchAssetMetrics = async (assetName: string) => {
     headers: headers,
   });
 
-  const { market_data, marketcap } = response.data.data;
-  return { market_data, marketcap };
+  const { market_data, marketcap, id } = response.data.data;
+  return { market_data, marketcap, id: id };
 };

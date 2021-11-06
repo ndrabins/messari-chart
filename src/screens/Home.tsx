@@ -5,16 +5,15 @@ import { RootState, getTimeSeriesData, getMetricsData } from "../store";
 import { SearchInput, Chart, Metrics } from "../components";
 
 export function Home() {
-  const [assetKey, setAssetKey] = useState("sol");
   const dispatch = useAppDispatch();
-  const { timeSeriesData, assetMetrics } = useAppSelector(
+  const { timeSeriesData, assetMetrics, assetName, assetKey } = useAppSelector(
     (state: RootState) => state.messari
   );
 
   useEffect(() => {
-    dispatch(getTimeSeriesData("sol"));
-    dispatch(getMetricsData("sol"));
-  }, []);
+    dispatch(getTimeSeriesData(assetKey));
+    dispatch(getMetricsData(assetKey));
+  }, [assetKey]);
 
   return (
     <Box
@@ -31,7 +30,11 @@ export function Home() {
           <SearchInput />
           <Box sx={{ height: "80%", width: "100%" }}>
             <Card sx={{ height: "100%", p: 2 }}>
-              <Metrics assetKey={assetKey} metrics={assetMetrics} />
+              <Metrics
+                assetKey={assetKey}
+                metrics={assetMetrics}
+                assetName={assetName}
+              />
               <Chart />
             </Card>
           </Box>

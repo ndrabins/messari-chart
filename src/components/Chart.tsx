@@ -1,7 +1,7 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
-import { Card } from "@mui/material";
+import { Card, CircularProgress, Stack } from "@mui/material";
 
 interface ChartProps {}
 
@@ -11,9 +11,16 @@ export function Chart(props: ChartProps) {
   );
 
   if (!timeSeriesData.length) {
-    return <div />;
+    return (
+      <Stack
+        alignItems="center"
+        justifyContent="center"
+        sx={{ height: "100%" }}
+      >
+        <CircularProgress />
+      </Stack>
+    );
   }
-
   return (
     <ResponsiveLine
       data={[
@@ -47,39 +54,6 @@ export function Chart(props: ChartProps) {
       animate={true}
       enableArea={true}
       areaBaselineValue={timeSeriesData[0].y}
-      // //
-      // defs={[
-      //   // using plain object
-      //   {
-      //     id: "positive",
-      //     type: "linearGradient",
-      //     colors: [
-      //       { offset: 0, color: "#faf047" },
-      //       { offset: 100, color: "#e4b400" },
-      //     ],
-      //   },
-      //   {
-      //     id: "negative",
-      //     type: "linearGradient",
-      //     colors: [
-      //       { offset: 0, color: "red" },
-      //       { offset: 100, color: "#e4b400" },
-      //     ],
-      //   },
-      // ]}
-      // fill={[
-      //   // match all, will only affect 'elm', because once a rule match,
-      //   // others are skipped, so now it acts as a fallback
-      //   // { match: "*", id: "positive" },
-      //   {
-      //     match: (d) => {
-      //       console.log("D", d);
-      //       return d.id === "vue";
-      //     },
-      //     id: "negative",
-      //   },
-      // ]}
-      //
       markers={[
         {
           axis: "y",

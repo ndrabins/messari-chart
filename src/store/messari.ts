@@ -4,6 +4,8 @@ import { RootState, AppThunk } from "./index";
 
 export interface MessariState {
   timeSeriesData: any;
+  assetKey: string;
+  assetName: string;
   assetMetrics: MessariMetrics;
   timeSeriesStatus: "idle" | "loading" | "failed";
   assetMetricsStatus: "idle" | "loading" | "failed";
@@ -11,7 +13,10 @@ export interface MessariState {
 
 const initialState: MessariState = {
   timeSeriesData: [],
+  assetKey: "SOL",
+  assetName: "Solana",
   assetMetrics: {
+    id: "b3d5d66c-26a2-404c-9325-91dc714a722b",
     market_data: {
       percent_change_usd_last_24_hours: 0,
       price_usd: 0,
@@ -21,6 +26,7 @@ const initialState: MessariState = {
       current_marketcap_usd: 0,
     },
   },
+
   timeSeriesStatus: "idle",
   assetMetricsStatus: "idle",
 };
@@ -55,7 +61,9 @@ export const messariSlice = createSlice({
       })
       .addCase(getTimeSeriesData.fulfilled, (state, action: any) => {
         state.timeSeriesStatus = "idle";
-        state.timeSeriesData = action.payload;
+        state.timeSeriesData = action.payload.timeSeriesData;
+        state.assetName = action.payload.assetName;
+        state.assetKey = action.payload.assetKey;
       })
       .addCase(getMetricsData.pending, (state) => {
         state.assetMetricsStatus = "loading";
