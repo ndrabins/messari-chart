@@ -103,7 +103,7 @@ export function Metrics(props: MetricsProps) {
             Total Market Cap
           </Typography>
           <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-            {current_marketcap_usd.toLocaleString("en-US").split(".")[0]}
+            $ {current_marketcap_usd.toLocaleString("en-US").split(".")[0]}
           </Typography>
         </Stack>
       </Stack>

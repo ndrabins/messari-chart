@@ -1,7 +1,10 @@
 import { ResponsiveLine } from "@nivo/line";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
-import { Card, CircularProgress, Stack } from "@mui/material";
+import { CircularProgress, Stack, Card, Typography } from "@mui/material";
+import { grey, blueGrey } from "@mui/material/colors";
+
+import dayjs from "dayjs";
 
 interface ChartProps {
   assetKey: string;
@@ -34,7 +37,7 @@ export function Chart(props: ChartProps) {
         },
       ]}
       curve="linear"
-      margin={{ top: 50, right: 60, bottom: 100, left: 60 }}
+      margin={{ top: 50, right: 60, bottom: 140, left: 60 }}
       xScale={{
         type: "time",
         min: "auto",
@@ -49,6 +52,9 @@ export function Chart(props: ChartProps) {
         max: "auto",
         reverse: false,
         stacked: true,
+      }}
+      theme={{
+        textColor: blueGrey[300],
       }}
       areaOpacity={0.1}
       enableGridX={false}
@@ -82,49 +88,25 @@ export function Chart(props: ChartProps) {
       lineWidth={2}
       pointSize={0}
       useMesh={true}
-      legends={[
-        {
-          anchor: "bottom-right",
-          direction: "column",
-          justify: false,
-          translateX: 100,
-          translateY: 0,
-          itemsSpacing: 0,
-          itemDirection: "left-to-right",
-          itemWidth: 80,
-          itemHeight: 20,
-          symbolSize: 12,
-          symbolShape: "circle",
-          symbolBorderColor: "rgba(0, 0, 0, .5)",
-          effects: [
-            {
-              on: "hover",
-              style: {
-                itemBackground: "rgba(0, 0, 0, .03)",
-                itemOpacity: 1,
-              },
-            },
-          ],
-        },
-      ]}
       enableSlices="x"
       sliceTooltip={({ slice }) => {
         return (
-          <Card sx={{ p: 2, bgcolor: "grey.900" }}>
+          <Card sx={{ p: 2, bgcolor: grey[900] }}>
             {slice.points.map((point) => (
-              <div
+              <Stack
                 key={point.id}
-                style={{
+                sx={{
                   color: point.serieColor,
-                  padding: "3px 0",
-                  display: "flex",
-                  flexDirection: "column",
                 }}
               >
-                <strong>{point.serieId}</strong>
-                <span>{Number(point.data.yFormatted).toFixed(2)}</span>
-                <span>{point.data.xFormatted}</span>
-              </div>
+                <Typography variant="body1">{point.serieId}</Typography>
+                <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                  {Number(point.data.yFormatted).toFixed(2)}
+                </Typography>
+                <Typography variant="subtitle1" sx={{ opacity: 0.7 }}>
+                  {point.data.xFormatted}
+                </Typography>
+              </Stack>
             ))}
           </Card>
         );

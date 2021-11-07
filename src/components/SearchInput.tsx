@@ -6,7 +6,6 @@ import {
   Popper,
   CircularProgress,
   ClickAwayListener,
-  Fade,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useAppSelector } from "../store/hooks";

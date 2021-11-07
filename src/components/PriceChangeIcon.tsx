@@ -10,7 +10,6 @@ interface PriceChangeIconProps {
 export function PriceChangeIcon(props: PriceChangeIconProps) {
   const { value } = props;
 
-  console.log("value", value);
   return (
     <Stack alignItems="center" justifyContent="center">
       {value > 0 ? (
