@@ -3,15 +3,17 @@ import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
 import { CircularProgress, Stack, Card, Typography } from "@mui/material";
 import { grey, blueGrey } from "@mui/material/colors";
+import { TIME_PARAMS } from "../utils/data";
 
 import dayjs from "dayjs";
 
 interface ChartProps {
   assetKey: string;
+  timeScale: TimeScale;
 }
 
 export function Chart(props: ChartProps) {
-  const { assetKey } = props;
+  const { assetKey, timeScale } = props;
 
   const { timeSeriesData } = useAppSelector(
     (state: RootState) => state.messari
@@ -28,6 +30,7 @@ export function Chart(props: ChartProps) {
       </Stack>
     );
   }
+
   return (
     <ResponsiveLine
       data={[
@@ -42,10 +45,13 @@ export function Chart(props: ChartProps) {
         type: "time",
         min: "auto",
         max: "auto",
-        format: "%m/%d/%Y %H:%M",
-        precision: "hour",
+        format: `${TIME_PARAMS[timeScale].chartFormat}`,
+        precision: `${TIME_PARAMS[timeScale].precision}` as
+          | "minute"
+          | "hour"
+          | "day",
       }}
-      xFormat="time:%d/%m/%Y %H:%M"
+      xFormat={`time:${TIME_PARAMS[timeScale].chartFormat}`}
       yScale={{
         type: "linear",
         min: "auto",
@@ -77,7 +83,7 @@ export function Chart(props: ChartProps) {
         },
       ]}
       axisBottom={{
-        format: "%b %d",
+        format: `${TIME_PARAMS[timeScale].chartXAxis}`,
       }}
       axisLeft={{
         legendOffset: -50,

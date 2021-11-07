@@ -1,22 +1,23 @@
-import { useState } from "react";
 import { Stack, Box, Tab, Tabs } from "@mui/material";
-import { grey, blueGrey } from "@mui/material/colors";
+import { grey } from "@mui/material/colors";
 
-interface TimeScaleSwitcherProps {}
+interface TimeScaleSwitcherProps {
+  timeScaleValue: TimeScale;
+  onChange(value: string): void;
+}
 
 export function TimeScaleSwitcher(props: TimeScaleSwitcherProps) {
-  const {} = props;
-  const [value, setValue] = useState("24hr");
+  const { timeScaleValue, onChange } = props;
 
   const handleChange = (event: any, newValue: any) => {
-    setValue(newValue);
+    onChange(newValue);
   };
 
   return (
     <Stack alignItems="flex-end" justifyContent="flex-end">
       <Box>
         <Tabs
-          value={value}
+          value={timeScaleValue}
           onChange={handleChange}
           aria-label="basic tabs example"
           TabIndicatorProps={{

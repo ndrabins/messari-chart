@@ -1,5 +1,5 @@
 import { Box, Container, Stack, Card } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../store/hooks";
 import {
   RootState,
@@ -10,16 +10,27 @@ import {
 import { SearchInput, Chart, Metrics, TimeScaleSwitcher } from "../components";
 
 export function Home() {
+  const [timeScaleValue, setTimeScaleValue] = useState<TimeScale>("7d");
   const dispatch = useAppDispatch();
   const { assetMetrics, assetName, assetKey } = useAppSelector(
     (state: RootState) => state.messari
   );
 
   useEffect(() => {
-    dispatch(getTimeSeriesData(assetKey));
-    dispatch(getMetricsData(assetKey));
     dispatch(getAssets());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getMetricsData(assetKey));
   }, [assetKey]);
+
+  useEffect(() => {
+    dispatch(getTimeSeriesData({ assetKey, timeScale: timeScaleValue }));
+  }, [timeScaleValue, assetKey]);
+
+  const handleTimeScaleChange = (timeScale: TimeScale) => {
+    setTimeScaleValue(timeScale);
+  };
 
   return (
     <Box
@@ -41,8 +52,11 @@ export function Home() {
                 metrics={assetMetrics}
                 assetName={assetName}
               />
-              <TimeScaleSwitcher />
-              <Chart assetKey={assetKey} />
+              <TimeScaleSwitcher
+                timeScaleValue={timeScaleValue}
+                onChange={handleTimeScaleChange}
+              />
+              <Chart assetKey={assetKey} timeScale={timeScaleValue} />
             </Card>
           </Box>
         </Stack>

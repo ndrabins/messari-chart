@@ -36,8 +36,14 @@ const initialState: MessariState = {
 
 export const getTimeSeriesData = createAsyncThunk(
   "messari/getTimeSeriesData",
-  async (assetKey: string) => {
-    const data = await fetchAssetTimeSeries(assetKey);
+  async ({
+    assetKey,
+    timeScale,
+  }: {
+    assetKey: string;
+    timeScale: TimeScale;
+  }) => {
+    const data = await fetchAssetTimeSeries(assetKey, timeScale);
     return data;
   }
 );

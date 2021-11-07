@@ -16,3 +16,5 @@ interface Asset {
   symbol: string;
   metrics: MessariMetrics;
 }
+
+type TimeScale = "24hr" | "7d" | "1M" | "3M";
