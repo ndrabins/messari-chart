@@ -3,7 +3,7 @@ import { fetchAssetMetrics, fetchAssetTimeSeries, fetchAllAssets } from "./api";
 import { RootState, AppThunk } from "./index";
 
 export interface MessariState {
-  timeSeriesData: any; // todo need type
+  timeSeriesData: any;
   assetKey: string;
   assetName: string;
   assetMetrics: MessariMetrics;
@@ -81,7 +81,7 @@ export const messariSlice = createSlice({
       .addCase(getTimeSeriesData.rejected, (state) => {
         state.timeSeriesStatus = "failed";
       })
-      .addCase(getTimeSeriesData.fulfilled, (state, action: any) => {
+      .addCase(getTimeSeriesData.fulfilled, (state, action) => {
         state.timeSeriesStatus = "idle";
         state.timeSeriesData = action.payload.timeSeriesData;
         state.assetName = action.payload.assetName;
@@ -93,7 +93,7 @@ export const messariSlice = createSlice({
       .addCase(getMetricsData.rejected, (state) => {
         state.assetMetricsStatus = "failed";
       })
-      .addCase(getMetricsData.fulfilled, (state, action: any) => {
+      .addCase(getMetricsData.fulfilled, (state, action) => {
         state.assetMetricsStatus = "idle";
         state.assetMetrics = action.payload;
       })
@@ -103,7 +103,7 @@ export const messariSlice = createSlice({
       .addCase(getAssets.rejected, (state) => {
         state.assetsStatus = "failed";
       })
-      .addCase(getAssets.fulfilled, (state, action: any) => {
+      .addCase(getAssets.fulfilled, (state, action) => {
         state.assetsStatus = "idle";
         state.assets = action.payload;
       });

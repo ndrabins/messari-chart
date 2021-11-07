@@ -13,7 +13,6 @@ export const fetchAssetTimeSeries = async (
   assetName: string,
   timeScale: TimeScale
 ) => {
-  console.log("time interval", timeScale);
   const params = {
     start: TIME_PARAMS[timeScale].start,
     end: dayjs().format(),
