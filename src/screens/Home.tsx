@@ -12,9 +12,7 @@ import { SearchInput, Chart, Metrics, TimeScaleSwitcher } from "../components";
 export function Home() {
   const [timeScaleValue, setTimeScaleValue] = useState<TimeScale>("7d");
   const dispatch = useAppDispatch();
-  const { assetMetrics, assetName, assetKey } = useAppSelector(
-    (state: RootState) => state.messari
-  );
+  const { assetKey } = useAppSelector((state: RootState) => state.messari);
 
   useEffect(() => {
     dispatch(getAssets());
@@ -47,16 +45,12 @@ export function Home() {
           <SearchInput />
           <Box sx={{ height: "80%", width: "100%" }}>
             <Card sx={{ height: "100%", p: 2 }}>
-              <Metrics
-                assetKey={assetKey}
-                metrics={assetMetrics}
-                assetName={assetName}
-              />
+              <Metrics />
               <TimeScaleSwitcher
                 timeScaleValue={timeScaleValue}
                 onChange={handleTimeScaleChange}
               />
-              <Chart assetKey={assetKey} timeScale={timeScaleValue} />
+              <Chart timeScale={timeScaleValue} />
             </Card>
           </Box>
         </Stack>

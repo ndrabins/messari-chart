@@ -1,3 +1,4 @@
+import React from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { useAppSelector } from "../store/hooks";
 import { RootState } from "../store";
@@ -8,14 +9,13 @@ import { TIME_PARAMS } from "../utils/data";
 import dayjs from "dayjs";
 
 interface ChartProps {
-  assetKey: string;
   timeScale: TimeScale;
 }
 
-export function Chart(props: ChartProps) {
-  const { assetKey, timeScale } = props;
+function ChartTest(props: ChartProps) {
+  const { timeScale } = props;
 
-  const { timeSeriesData } = useAppSelector(
+  const { timeSeriesData, assetKey } = useAppSelector(
     (state: RootState) => state.messari
   );
 
@@ -136,3 +136,5 @@ export function Chart(props: ChartProps) {
     />
   );
 }
+
+export const Chart = React.memo(ChartTest);

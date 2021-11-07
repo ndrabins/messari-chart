@@ -1,18 +1,20 @@
 import { Typography, Stack, Box, Divider, Avatar, Chip } from "@mui/material";
 import { getColorStyles } from "../utils/styles";
 import { PriceChangeIcon } from "./PriceChangeIcon";
+import { useAppSelector } from "../store/hooks";
+import { RootState } from "../store";
 
-interface MetricsProps {
-  assetKey: string;
-  assetName: string;
-  metrics: MessariMetrics;
-}
+interface MetricsProps {}
 
 export function Metrics(props: MetricsProps) {
-  const { assetKey, metrics, assetName } = props;
-  const { id } = metrics;
-  const { percent_change_usd_last_24_hours, price_usd } = metrics.market_data;
-  const { rank, current_marketcap_usd } = metrics.marketcap;
+  const { assetMetrics, assetName } = useAppSelector(
+    (state: RootState) => state.messari
+  );
+
+  const { id } = assetMetrics;
+  const { percent_change_usd_last_24_hours, price_usd } =
+    assetMetrics.market_data;
+  const { rank, current_marketcap_usd } = assetMetrics.marketcap;
 
   return (
     <Box>
