@@ -5,7 +5,7 @@ const BASE_URL = "https://data.messari.io/api/v1/";
 const BASE_URL_V2 = "https://data.messari.io/api/v2/";
 
 const headers = {
-  // "x-messari-api-key": process.env.REACT_APP_MESSARI_API ?? "",
+  "x-messari-api-key": process.env.REACT_APP_MESSARI_API || "",
 };
 
 export const fetchAssetTimeSeries = async (assetName: string) => {

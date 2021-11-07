@@ -80,6 +80,7 @@ export function Chart(props: ChartProps) {
         format: "%b %d",
       }}
       axisLeft={{
+        legendOffset: -40,
         tickPadding: 5,
         tickRotation: 0,
         legend: "Price",
@@ -99,13 +100,28 @@ export function Chart(props: ChartProps) {
                   color: point.serieColor,
                 }}
               >
-                <Typography variant="body1">{point.serieId}</Typography>
-                <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                  {Number(point.data.yFormatted).toFixed(2)}
-                </Typography>
-                <Typography variant="subtitle1" sx={{ opacity: 0.7 }}>
-                  {point.data.xFormatted}
-                </Typography>
+                <Stack
+                  direction="row"
+                  sx={{ minWidth: 200, mb: 2 }}
+                  justifyContent="space-between"
+                >
+                  <Typography variant="body1">{point.serieId}</Typography>
+                  <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+                    $ {Number(point.data.yFormatted).toFixed(2)}
+                  </Typography>
+                </Stack>
+                <Stack
+                  direction="row"
+                  sx={{ minWidth: 200 }}
+                  justifyContent="space-between"
+                >
+                  <Typography variant="subtitle1" sx={{ color: "grey.400" }}>
+                    {dayjs(point.data.xFormatted).format("DD/MM/YYYY")}
+                  </Typography>
+                  <Typography variant="subtitle1" sx={{ color: "grey.400" }}>
+                    {dayjs(point.data.xFormatted).format("h:mm A")}
+                  </Typography>
+                </Stack>
               </Stack>
             ))}
           </Card>
