@@ -32,7 +32,7 @@ export function Metrics(props: MetricsProps) {
         </Stack>
         <Stack>
           <Typography
-            sx={{ color: "grey.300" }}
+            sx={{ color: "grey.400" }}
             variant="subtitle2"
             gutterBottom
           >
@@ -41,26 +41,28 @@ export function Metrics(props: MetricsProps) {
               label="24h"
               size="small"
               sx={{
-                bgcolor: "grey.700",
-                color: "grey.200",
+                bgcolor: "grey.900",
+                color: "grey.500",
                 ml: 1,
               }}
             />
           </Typography>
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: "bold",
-              color: getColorStyles(percent_change_usd_last_24_hours),
-            }}
-          >
+          <Stack direction="row">
             <PriceChangeIcon value={percent_change_usd_last_24_hours} />
-            {percent_change_usd_last_24_hours.toFixed(2)}%
-          </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: "bold",
+                color: getColorStyles(percent_change_usd_last_24_hours),
+              }}
+            >
+              {percent_change_usd_last_24_hours.toFixed(2)}%
+            </Typography>
+          </Stack>
         </Stack>
         <Stack sx={{ flexWrap: "wrap" }}>
           <Typography
-            sx={{ color: "grey.300" }}
+            sx={{ color: "grey.400" }}
             variant="subtitle2"
             gutterBottom
           >
@@ -69,8 +71,8 @@ export function Metrics(props: MetricsProps) {
               label="USD"
               size="small"
               sx={{
-                bgcolor: "grey.700",
-                color: "grey.200",
+                bgcolor: "grey.900",
+                color: "grey.500",
                 ml: 1,
               }}
             />
@@ -81,7 +83,7 @@ export function Metrics(props: MetricsProps) {
         </Stack>
         <Stack>
           <Typography
-            sx={{ color: "grey.300" }}
+            sx={{ color: "grey.400" }}
             variant="subtitle2"
             gutterBottom
           >
@@ -94,7 +96,7 @@ export function Metrics(props: MetricsProps) {
         </Stack>
         <Stack>
           <Typography
-            sx={{ color: "grey.300" }}
+            sx={{ color: "grey.400" }}
             variant="subtitle2"
             gutterBottom
           >

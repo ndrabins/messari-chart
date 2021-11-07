@@ -80,29 +80,28 @@ export function AssetList(props: AssetListProps) {
                       >
                         $ {asset.metrics.market_data.price_usd.toFixed(2)}
                       </Typography>
-                      <Typography
-                        sx={{
-                          alignSelf: "flex-end",
-                          color: getColorStyles(
-                            asset.metrics.market_data
-                              .percent_change_usd_last_24_hours
-                          ),
-                          alignItems: "center",
-                          display: "flex",
-                        }}
-                        variant="subtitle1"
-                      >
+                      <Stack direction="row" justifyContent="flex-end">
                         <PriceChangeIcon
                           value={
                             asset.metrics.market_data
                               .percent_change_usd_last_24_hours
                           }
                         />
-                        {asset.metrics.market_data.percent_change_usd_last_24_hours.toFixed(
-                          2
-                        )}
-                        {"%"}
-                      </Typography>
+                        <Typography
+                          sx={{
+                            color: getColorStyles(
+                              asset.metrics.market_data
+                                .percent_change_usd_last_24_hours
+                            ),
+                          }}
+                          variant="subtitle1"
+                        >
+                          {asset.metrics.market_data.percent_change_usd_last_24_hours.toFixed(
+                            2
+                          )}
+                          {"%"}
+                        </Typography>
+                      </Stack>
                     </Stack>
                   </ListItemSecondaryAction>
                 </ListItemButton>
