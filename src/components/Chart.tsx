@@ -37,7 +37,7 @@ export function Chart(props: ChartProps) {
         },
       ]}
       curve="linear"
-      margin={{ top: 50, right: 60, bottom: 140, left: 60 }}
+      margin={{ top: 20, right: 60, bottom: 180, left: 60 }}
       xScale={{
         type: "time",
         min: "auto",
@@ -80,7 +80,7 @@ export function Chart(props: ChartProps) {
         format: "%b %d",
       }}
       axisLeft={{
-        legendOffset: -40,
+        legendOffset: -50,
         tickPadding: 5,
         tickRotation: 0,
         legend: "Price",
@@ -112,14 +112,14 @@ export function Chart(props: ChartProps) {
                 </Stack>
                 <Stack
                   direction="row"
-                  sx={{ minWidth: 200 }}
+                  sx={{ minWidth: 240 }}
                   justifyContent="space-between"
                 >
                   <Typography variant="subtitle1" sx={{ color: "grey.400" }}>
-                    {dayjs(point.data.xFormatted).format("DD/MM/YYYY")}
+                    {dayjs(point.data.x).format("MMMM D, YYYY")}
                   </Typography>
                   <Typography variant="subtitle1" sx={{ color: "grey.400" }}>
-                    {dayjs(point.data.xFormatted).format("h:mm A")}
+                    {dayjs(point.data.x).format("h:mm A")}
                   </Typography>
                 </Stack>
               </Stack>

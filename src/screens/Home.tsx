@@ -7,11 +7,11 @@ import {
   getMetricsData,
   getAssets,
 } from "../store";
-import { SearchInput, Chart, Metrics } from "../components";
+import { SearchInput, Chart, Metrics, TimeScaleSwitcher } from "../components";
 
 export function Home() {
   const dispatch = useAppDispatch();
-  const { timeSeriesData, assetMetrics, assetName, assetKey } = useAppSelector(
+  const { assetMetrics, assetName, assetKey } = useAppSelector(
     (state: RootState) => state.messari
   );
 
@@ -24,7 +24,7 @@ export function Home() {
   return (
     <Box
       sx={{
-        background: `linear-gradient(135deg, #004d40, #006064)`,
+        background: `linear-gradient(135deg, #004d40, #26a69a)`,
       }}
     >
       <Container>
@@ -41,6 +41,7 @@ export function Home() {
                 metrics={assetMetrics}
                 assetName={assetName}
               />
+              <TimeScaleSwitcher />
               <Chart assetKey={assetKey} />
             </Card>
           </Box>

@@ -35,6 +35,7 @@ export function Metrics(props: MetricsProps) {
             sx={{ color: "grey.400" }}
             variant="subtitle2"
             gutterBottom
+            align="right"
           >
             Price Change
             <Chip
@@ -47,7 +48,7 @@ export function Metrics(props: MetricsProps) {
               }}
             />
           </Typography>
-          <Stack direction="row">
+          <Stack direction="row" justifyContent="flex-end">
             <PriceChangeIcon value={percent_change_usd_last_24_hours} />
             <Typography
               variant="h5"
@@ -55,6 +56,7 @@ export function Metrics(props: MetricsProps) {
                 fontWeight: "bold",
                 color: getColorStyles(percent_change_usd_last_24_hours),
               }}
+              align="right"
             >
               {percent_change_usd_last_24_hours.toFixed(2)}%
             </Typography>
@@ -65,6 +67,7 @@ export function Metrics(props: MetricsProps) {
             sx={{ color: "grey.400" }}
             variant="subtitle2"
             gutterBottom
+            align="right"
           >
             Price
             <Chip
@@ -77,7 +80,7 @@ export function Metrics(props: MetricsProps) {
               }}
             />
           </Typography>
-          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }} align="right">
             $ {price_usd.toFixed(2)}
           </Typography>
         </Stack>
@@ -89,7 +92,7 @@ export function Metrics(props: MetricsProps) {
           >
             Market Rank
           </Typography>
-          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }} align="right">
             {" "}
             #{rank}
           </Typography>
@@ -99,10 +102,11 @@ export function Metrics(props: MetricsProps) {
             sx={{ color: "grey.400" }}
             variant="subtitle2"
             gutterBottom
+            align="right"
           >
             Total Market Cap
           </Typography>
-          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }} align="right">
             $ {current_marketcap_usd.toLocaleString("en-US").split(".")[0]}
           </Typography>
         </Stack>
