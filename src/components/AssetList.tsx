@@ -13,8 +13,7 @@ import {
   ListItemButton,
 } from "@mui/material";
 import { getColorStyles } from "../utils/styles";
-import ArrowUpward from "@mui/icons-material/ArrowUpward";
-import ArrowDownward from "@mui/icons-material/ArrowDownward";
+import { PriceChangeIcon } from "./PriceChangeIcon";
 
 interface AssetListProps {
   assets: Array<Asset>;
@@ -39,7 +38,9 @@ export function AssetList(props: AssetListProps) {
   }, [filter]);
 
   return (
-    <Card sx={{ minWidth: 400, maxHeight: 400, overflow: "auto" }}>
+    <Card
+      sx={{ minWidth: 300, width: "100%", maxHeight: 400, overflow: "auto" }}
+    >
       <List sx={{ width: "100%", bgcolor: "background.paper" }}>
         {filteredAssets.map((asset) => {
           return (
@@ -91,15 +92,16 @@ export function AssetList(props: AssetListProps) {
                         }}
                         variant="subtitle1"
                       >
-                        {asset.metrics.market_data
-                          .percent_change_usd_last_24_hours > 0 ? (
-                          <ArrowUpward fontSize="small" sx={{ mr: 1 }} />
-                        ) : (
-                          <ArrowDownward fontSize="small" sx={{ mr: 1 }} />
-                        )}
+                        <PriceChangeIcon
+                          value={
+                            asset.metrics.market_data
+                              .percent_change_usd_last_24_hours
+                          }
+                        />
                         {asset.metrics.market_data.percent_change_usd_last_24_hours.toFixed(
                           2
                         )}
+                        {"%"}
                       </Typography>
                     </Stack>
                   </ListItemSecondaryAction>

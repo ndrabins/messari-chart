@@ -1,4 +1,6 @@
-import { Typography, Stack, Box, Divider, Avatar } from "@mui/material";
+import { Typography, Stack, Box, Divider, Avatar, Chip } from "@mui/material";
+import { getColorStyles } from "../utils/styles";
+import { PriceChangeIcon } from "./PriceChangeIcon";
 
 interface MetricsProps {
   assetKey: string;
@@ -29,16 +31,76 @@ export function Metrics(props: MetricsProps) {
           <Typography variant="h4"> {assetName}</Typography>
         </Stack>
         <Stack>
-          <Typography>{percent_change_usd_last_24_hours.toFixed(2)}</Typography>
+          <Typography
+            sx={{ color: "grey.300" }}
+            variant="subtitle2"
+            gutterBottom
+          >
+            Price Change
+            <Chip
+              label="24h"
+              size="small"
+              sx={{
+                bgcolor: "grey.700",
+                color: "grey.200",
+                ml: 1,
+              }}
+            />
+          </Typography>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: "bold",
+              color: getColorStyles(percent_change_usd_last_24_hours),
+            }}
+          >
+            <PriceChangeIcon value={percent_change_usd_last_24_hours} />
+            {percent_change_usd_last_24_hours.toFixed(2)}%
+          </Typography>
         </Stack>
-        <Stack direction="row">
-          <Typography> {price_usd.toFixed(2)} </Typography>
+        <Stack sx={{ flexWrap: "wrap" }}>
+          <Typography
+            sx={{ color: "grey.300" }}
+            variant="subtitle2"
+            gutterBottom
+          >
+            Price
+            <Chip
+              label="USD"
+              size="small"
+              sx={{
+                bgcolor: "grey.700",
+                color: "grey.200",
+                ml: 1,
+              }}
+            />
+          </Typography>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            $ {price_usd.toFixed(2)}
+          </Typography>
         </Stack>
-        <Stack direction="row">
-          <Typography> {rank}</Typography>
+        <Stack>
+          <Typography
+            sx={{ color: "grey.300" }}
+            variant="subtitle2"
+            gutterBottom
+          >
+            Market Rank
+          </Typography>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+            {" "}
+            #{rank}
+          </Typography>
         </Stack>
-        <Stack direction="row">
-          <Typography>
+        <Stack>
+          <Typography
+            sx={{ color: "grey.300" }}
+            variant="subtitle2"
+            gutterBottom
+          >
+            Total Market Cap
+          </Typography>
+          <Typography variant="h5" sx={{ fontWeight: "bold" }}>
             {current_marketcap_usd.toLocaleString("en-US").split(".")[0]}
           </Typography>
         </Stack>

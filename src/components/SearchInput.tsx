@@ -5,9 +5,11 @@ import {
   InputAdornment,
   Popper,
   CircularProgress,
+  ClickAwayListener,
+  Fade,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useAppSelector, useAppDispatch } from "../store/hooks";
+import { useAppSelector } from "../store/hooks";
 import { selectAsset } from "../store";
 import { RootState } from "../store";
 import { AssetList } from "./AssetList";
@@ -47,49 +49,53 @@ export function SearchInput(props: SearchInputProps) {
     timeSeriesStatus === "loading" || assetMetricsStatus === "loading";
 
   return (
-    <Card
-      sx={{
-        mb: 5,
-        p: 2,
-        width: "50%",
-        justifySelf: "center",
-        display: "flex",
-      }}
-      ref={anchorEl}
-    >
-      <TextField
-        fullWidth
-        id="outlined-basic"
-        onClick={() => setAssetListOpen(true)}
-        label="Search"
-        value={searchValue}
-        onChange={(e) => handleOnChange(e.target.value, e.target)}
-        variant="outlined"
-        placeholder="Search for a crypto to display"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-          endAdornment: isLoading && (
-            <InputAdornment position="end">
-              <CircularProgress size={20} />
-            </InputAdornment>
-          ),
+    <ClickAwayListener onClickAway={() => setAssetListOpen(false)}>
+      <Card
+        sx={{
+          mb: 5,
+          p: 2,
+          width: "400px",
+          minWidth: "400px",
+          justifySelf: "center",
+          display: "flex",
         }}
-      />
-      <Popper
-        id={"assetSearch"}
-        open={assetListOpen}
-        anchorEl={anchorEl.current}
+        ref={anchorEl}
       >
-        <AssetList
-          filter={searchValue}
-          assets={assets}
-          onClick={handleAssetSelect}
+        <TextField
+          fullWidth
+          id="outlined-basic"
+          onClick={() => setAssetListOpen(true)}
+          label="Search"
+          value={searchValue}
+          onChange={(e) => handleOnChange(e.target.value, e.target)}
+          variant="outlined"
+          placeholder="Search for a crypto to display"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+            endAdornment: isLoading && (
+              <InputAdornment position="end">
+                <CircularProgress size={20} />
+              </InputAdornment>
+            ),
+          }}
         />
-      </Popper>
-    </Card>
+        <Popper
+          id={"assetSearch"}
+          open={assetListOpen}
+          anchorEl={anchorEl.current}
+          style={{ width: "400px", minWidth: "400px" }}
+        >
+          <AssetList
+            filter={searchValue}
+            assets={assets}
+            onClick={handleAssetSelect}
+          />
+        </Popper>
+      </Card>
+    </ClickAwayListener>
   );
 }
