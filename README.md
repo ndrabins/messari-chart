@@ -7,10 +7,10 @@
 - Redux + Redux Toolkit
 - Nivo Charts
 
-## Available Scripts
+## Installation and run
 
-In the project directory, you can run:
+### Installation: `npm install` or `yarn`
 
-### `npm install` or `yarn`
+### To Run: `npm run start` or `yarn start`
 
-### `npm run start` or `yarn start`
+## Hosted @ https://messari-chart.vercel.app/

@@ -10,7 +10,7 @@ import {
 import { SearchInput, Chart, Metrics, TimeScaleSwitcher } from "../components";
 
 export function Home() {
-  const [timeScaleValue, setTimeScaleValue] = useState<TimeScale>("7d");
+  const [timeScaleValue, setTimeScaleValue] = useState<TimeScale>("3M");
   const dispatch = useAppDispatch();
   const { assetKey } = useAppSelector((state: RootState) => state.messari);
 

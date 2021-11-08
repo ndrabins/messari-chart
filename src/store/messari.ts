@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchAssetMetrics, fetchAssetTimeSeries, fetchAllAssets } from "./api";
-import { RootState, AppThunk } from "./index";
 
 export interface MessariState {
   timeSeriesData: any;
