@@ -9,7 +9,9 @@
 
 ## Installation and run
 
-### Create `.env` file and add variable with messari api key: `REACT_APP_MESSARI_API=<messari_api_key>`
+### Create `.env` file and add variable with messari api key:
+
+`REACT_APP_MESSARI_API=<messari_api_key>`
 
 ### Installation: `npm install` or `yarn`
 

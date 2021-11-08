@@ -5,6 +5,8 @@ import { RootState } from "../store";
 import { CircularProgress, Stack, Card, Typography } from "@mui/material";
 import { grey, blueGrey } from "@mui/material/colors";
 import { TIME_PARAMS } from "../utils/data";
+import { PriceChangeIcon } from "./PriceChangeIcon";
+import { getColorStyles } from "../utils/styles";
 
 import dayjs from "dayjs";
 
@@ -61,10 +63,15 @@ function ChartTest(props: ChartProps) {
       }}
       theme={{
         textColor: blueGrey[300],
+        crosshair: {
+          line: {
+            stroke: grey[500],
+          },
+        },
       }}
       areaOpacity={0.1}
       enableGridX={false}
-      colors={["rgb(97, 205, 187)", "white"]}
+      colors={["rgb(97, 205, 187)"]}
       axisTop={null}
       axisRight={null}
       animate={true}
@@ -97,6 +104,12 @@ function ChartTest(props: ChartProps) {
       useMesh={true}
       enableSlices="x"
       sliceTooltip={({ slice }) => {
+        // percent change since time scale
+        const priceAtSlice = Number(slice.points[0].data.yFormatted);
+        const priceAtTimeScale = timeSeriesData[0].y;
+        const differenceValue = priceAtSlice - priceAtTimeScale;
+        const percentChange = (differenceValue / priceAtTimeScale) * 100;
+
         return (
           <Card sx={{ p: 2, bgcolor: grey[900] }}>
             {slice.points.map((point) => (
@@ -108,12 +121,24 @@ function ChartTest(props: ChartProps) {
               >
                 <Stack
                   direction="row"
-                  sx={{ minWidth: 200, mb: 2 }}
+                  sx={{ minWidth: 200 }}
                   justifyContent="space-between"
                 >
                   <Typography variant="body1">{point.serieId}</Typography>
                   <Typography variant="h5" sx={{ fontWeight: "bold" }}>
-                    $ {Number(point.data.yFormatted).toFixed(2)}
+                    $ {priceAtSlice.toFixed(2)}
+                  </Typography>
+                </Stack>
+                <Stack direction="row" justifyContent="flex-end">
+                  <PriceChangeIcon value={Number(percentChange)} />
+                  <Typography
+                    sx={{
+                      color: getColorStyles(Number(percentChange)),
+                    }}
+                    variant="subtitle1"
+                  >
+                    {Number(percentChange).toFixed(2)}
+                    {"%"}
                   </Typography>
                 </Stack>
                 <Stack
